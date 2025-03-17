@@ -42,10 +42,17 @@ app.get("/search", (req, res) => {
       .json({ error: "Tidak ada file yang cocok ditemukan." });
   }
 
+  console.log("====================================");
+  console.log(`Playing: ${req.query.play}`);
+  console.log("====================================");
   // Ambil hasil terbaik (paling relevan)
   const bestMatch = results[0].item;
   // Buat link berdasarkan filename dan base URL
   const link = `${BASE_URL}${bestMatch.filename}`;
+
+  if (req.query.play) {
+    res.redirect(link);
+  }
 
   return res.json({
     filename: bestMatch.filename,
